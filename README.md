@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Estúdio Web — landing-catalog
 
-## Getting Started
+Base institucional em Next.js App Router, React, TypeScript e Tailwind CSS.
 
-First, run the development server:
+## Desenvolvimento
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+A aplicação fica em `src/app`. Os componentes reutilizáveis estão em
+`src/components`, as tipagens em `src/types` e os dados em `src/data`.
+Os arrays de serviços e modelos começam vazios.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Validação
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint
+npx tsc --noEmit
+npm run build
+```
 
-## Learn More
+As fontes Geist e Geist Mono foram preservadas via `next/font/google`;
+o build precisa conseguir baixar essas fontes.
 
-To learn more about Next.js, take a look at the following resources:
+## Exportação estática
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+`npm run build` gera a pasta `out/`, compatível com hospedagem estática.
+Para uma futura publicação no Firebase Hosting, usar `out` como diretório
+público, sem reescrita de todas as URLs para `index.html` (modo SPA).
+A configuração mantém `output: "export"` e `trailingSlash: true`.
+Nenhuma publicação foi configurada nesta etapa.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+A rota `/modelos/[slug]` usa `generateStaticParams()` com os slugs de
+`src/data/templates.ts`. Com o catálogo vazio, retorna o marcador técnico
+`__empty__`, que resulta em `notFound()` e não representa um modelo.
+A documentação desta versão recomenda esse recurso para validar rotas com
+Cache Components sem parâmetros reais. Slugs sem modelo retornam 404.
+Após cadastrar modelos, executar um novo build para gerar suas páginas.
+As opções originais `cacheComponents` e `partialPrefetching` foram preservadas.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Próxima etapa: definir o design system e desenvolver a página inicial.
