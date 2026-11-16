@@ -102,3 +102,42 @@ ocultação de links, renderização vazia ou remoção manual de arquivos expor
 
 O copyright é calculado em uma função com `use cache`, compatível com
 Cache Components e a exportação estática; o ano é atualizado em cada novo build.
+
+## Páginas institucionais — Etapa 4
+
+- `/servicos`: três categorias em seções verticais, com público ou aplicações,
+  funcionalidades possíveis e links de orçamento específicos por serviço.
+- `/como-funciona`: cinco etapas, materiais necessários, manutenção opcional
+  e chamada para contato.
+- `/contato`: formulário visual com validação ao sair dos campos. Campos
+  obrigatórios vazios (inclusive só espaços) e e-mail inválido geram mensagens
+  associadas aos campos. A correção do valor remove a mensagem de erro.
+
+O formulário é um Client Component isolado em `Suspense`. O parâmetro
+`servico` é lido no cliente e aceita somente `profissionais`, `empresas` e
+`campanhas`. Valores desconhecidos ou ausentes mantêm o select sem seleção.
+A opção “Ainda não sei” pode ser escolhida manualmente. A navegação para outro
+serviço reinicia o formulário, sem persistir os dados preenchidos.
+
+O envio permanece desabilitado e o evento de submit é bloqueado. Não há
+integração externa, armazenamento de dados, registro de informações pessoais
+no console ou mensagem de sucesso. A validação atual serve para a demonstração;
+a integração futura deve adicionar envio real e validação no serviço receptor
+antes de habilitar o botão.
+
+Para testar manualmente, executar `npm run dev` e abrir:
+
+```text
+http://localhost:3000/servicos
+http://localhost:3000/como-funciona
+http://localhost:3000/contato
+http://localhost:3000/contato?servico=profissionais
+http://localhost:3000/contato?servico=empresas
+http://localhost:3000/contato?servico=campanhas
+http://localhost:3000/contato?servico=desconhecido
+```
+
+Conferir a opção selecionada, navegar com Tab e sair dos campos obrigatórios
+vazios ou com e-mail inválido para verificar os erros. O botão deve continuar
+desabilitado mesmo com dados válidos. Conferir também as larguras de 375, 768,
+1280 e 1440 px e executar `npm run build` para validar a exportação estática.
