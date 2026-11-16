@@ -1,14 +1,23 @@
-import { Container } from "@/components/ui/Container";
-import { Heading } from "@/components/ui/Heading";
-import { Section } from "@/components/ui/Section";
+import type { Metadata } from "next";
+import { HeroSection } from "@/components/home/HeroSection";
+import { ServicesSection } from "@/components/home/ServicesSection";
+import { BenefitsSection } from "@/components/home/BenefitsSection";
+import { ProcessSection } from "@/components/home/ProcessSection";
+import { ContactCTASection } from "@/components/home/ContactCTASection";
+
+export const metadata: Metadata = {
+  title: "Desenvolvimento de Sites e Landing Pages | Estúdio Web",
+  description: "Criação de sites profissionais, páginas empresariais e landing pages para campanhas. Desenvolvimento moderno, responsivo e personalizado.",
+};
 
 export default function Page() {
   return (
-    <Section>
-      <Container>
-        <Heading>Início</Heading>
-        <p className="mt-4 max-w-2xl text-muted-foreground">Apresentação do estúdio em preparação.</p>
-      </Container>
-    </Section>
+    <>
+      <HeroSection />
+      <ServicesSection />
+      <BenefitsSection />
+      <ProcessSection />
+      <ContactCTASection />
+    </>
   );
 }
