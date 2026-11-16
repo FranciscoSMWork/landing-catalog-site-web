@@ -7,7 +7,7 @@ export default function Page() {
     <Section>
       <Container>
         <Heading>Como funciona</Heading>
-        <p className="mt-4 max-w-2xl text-foreground/70">Em breve, apresentaremos as etapas de criação de uma landing page.</p>
+        <p className="mt-4 max-w-2xl text-muted-foreground">Em breve, apresentaremos as etapas de criação de uma landing page.</p>
       </Container>
     </Section>
   );

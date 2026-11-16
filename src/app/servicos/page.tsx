@@ -7,7 +7,7 @@ export default function Page() {
     <Section>
       <Container>
         <Heading>Serviços</Heading>
-        <p className="mt-4 max-w-2xl text-foreground/70">Informações sobre nossos serviços serão disponibilizadas em breve.</p>
+        <p className="mt-4 max-w-2xl text-muted-foreground">Informações sobre nossos serviços serão disponibilizadas em breve.</p>
       </Container>
     </Section>
   );

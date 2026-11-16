@@ -21,7 +21,7 @@ export default async function TemplatePage({ params }: PageProps<"/modelos/[slug
     <Section>
       <Container>
         <Heading>{template.name}</Heading>
-        <p className="mt-4 max-w-2xl text-foreground/70">{template.description}</p>
+        <p className="mt-4 max-w-2xl text-muted-foreground">{template.description}</p>
       </Container>
     </Section>
   );

@@ -26,8 +26,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-md focus:bg-background focus:px-4 focus:py-3">
+          Pular para o conteúdo
+        </a>
         <Header />
-        <main className="flex-1">{children}</main>
+        <main id="main-content" tabIndex={-1} className="min-w-0 flex-1">{children}</main>
         <Footer />
       </body>
     </html>

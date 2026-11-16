@@ -40,3 +40,65 @@ Após cadastrar modelos, executar um novo build para gerar suas páginas.
 As opções originais `cacheComponents` e `partialPrefetching` foram preservadas.
 
 Próxima etapa: definir o design system e desenvolver a página inicial.
+
+## Design System — Etapa 2
+
+Tema claro monocromático com tokens em `src/app/globals.css`, integrados ao
+Tailwind CSS 4 por `@theme inline`. Geist Sans é a fonte principal e Geist Mono
+é reservada a referências técnicas. Não há alternância automática de tema.
+
+- Cores: fundo branco, superfície `#FAFAFA`, texto `#171717`, bordas `#E5E5E5`,
+  primário `#171717` com texto branco e hover `#333333`.
+- Texto secundário: `#707070`, um pequeno ajuste sobre a referência `#737373`
+  para manter contraste sobre a superfície e o fundo muted `#F5F5F5`.
+- Títulos mobile/desktop: H1 36/56, H2 30/40, H3 24/28 e H4 18/22 px;
+  a escala desktop entra em 1024 px. Texto normal 16, secundário 14, pequeno 12 px.
+- Containers: `variant="default"` (1200 px), `narrow` (768 px), `wide` (1400 px).
+  Larguras incluem padding lateral de 20/32/40 px.
+- Seções: `spacing="sm"`, `md` ou `lg`. Padding por lado em mobile/tablet/desktop:
+  40/56/64, 56/72/96 e 72/96/120 px, respectivamente.
+- Button: variantes `primary`, `secondary`, `outline`, `ghost`; tamanhos `sm`,
+  `md`, `lg`; alturas mínimas de 44/48/56 px. O tipo nativo padrão é `button`.
+  Para navegação, usar `next/link` com `buttonStyles({ variant, size })`.
+- Badge: rótulo neutro com borda opcional (`bordered`). Card: bloco estático,
+  ou link semântico ao receber `href`; apenas a versão link tem hover.
+- Divider: separador semântico `hr`. Heading mantém o nível HTML escolhido.
+- Foco visível, link para pular ao conteúdo, alvos de navegação de pelo menos
+  44 px e respeito a `prefers-reduced-motion`. No mobile, os links permanecem
+  visíveis em linhas flexíveis, sem menu recolhido ou JavaScript adicional.
+
+### Visualizar os componentes
+
+```bash
+npm run dev
+```
+
+Acessar `http://localhost:3000/design-system`. A página é uma demonstração
+interna, sem conteúdo comercial definitivo. Os botões demonstrativos não
+executam ações; os exemplos de links apontam para páginas existentes.
+
+### Excluir a demonstração da versão comercial
+
+```bash
+npm run build
+```
+
+Esse é o build comercial padrão: `/design-system` **não é uma rota** nesse
+modo e não deve aparecer em `out/design-system/`. O arquivo `page.demo.tsx`
+só é reconhecido quando a configuração inclui a extensão `demo.tsx`.
+`next.config.ts` habilita essa extensão no servidor de desenvolvimento ou
+quando `INCLUDE_DESIGN_SYSTEM=true` é explicitamente definido.
+
+Para gerar uma exportação de validação com a demonstração:
+
+```bash
+INCLUDE_DESIGN_SYSTEM=true npm run build
+```
+
+Não publicar esse artefato no Firebase. Antes de publicar, garantir que a
+variável está ausente e executar novamente `npm run build`, que recria `out/`
+sem a demonstração. A exclusão é feita no roteamento, não por `noindex`,
+ocultação de links, renderização vazia ou remoção manual de arquivos exportados.
+
+O copyright é calculado em uma função com `use cache`, compatível com
+Cache Components e a exportação estática; o ano é atualizado em cada novo build.
