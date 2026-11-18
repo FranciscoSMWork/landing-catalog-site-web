@@ -4,9 +4,11 @@ import { TemplateDetails } from "@/components/templates/TemplateDetails";
 import { templates } from "@/data/templates";
 import { getTemplateBySlug, getTemplateSlugs } from "@/lib/templates";
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   const slugs = getTemplateSlugs(templates);
-  // Cache Components exige um parâmetro mesmo sem modelos ativos.
+  // Esta versão do export também exige um parâmetro com catálogo vazio.
   // O marcador técnico resulta em notFound(), nunca em um modelo fictício.
   return slugs.length > 0 ? slugs.map((slug) => ({ slug })) : [{ slug: "__empty__" }];
 }

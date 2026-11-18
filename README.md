@@ -29,15 +29,16 @@ o build precisa conseguir baixar essas fontes.
 Para uma futura publicação no Firebase Hosting, usar `out` como diretório
 público, sem reescrita de todas as URLs para `index.html` (modo SPA).
 A configuração mantém `output: "export"` e `trailingSlash: true`.
-Nenhuma publicação foi configurada nesta etapa.
+Os workflows de produção e preview validam a exportação antes de publicar.
+As tarefas locais de correção não executam deploy automaticamente.
 
 A rota `/modelos/[slug]` usa `generateStaticParams()` com os slugs de
 `src/data/templates.ts`. Com o catálogo vazio, retorna o marcador técnico
 `__empty__`, que resulta em `notFound()` e não representa um modelo.
-A documentação desta versão recomenda esse recurso para validar rotas com
-Cache Components sem parâmetros reais. Slugs sem modelo retornam 404.
+O export desta versão exige ao menos um parâmetro mesmo sem modelos reais. Slugs sem modelo retornam 404.
 Após cadastrar modelos, executar um novo build para gerar suas páginas.
-As opções originais `cacheComponents` e `partialPrefetching` foram preservadas.
+`cacheComponents` e `partialPrefetching` foram removidos: o build com PPR
+falha com `Invariant: PPR cannot be enabled in export mode`.
 
 Próxima etapa: definir o design system e desenvolver a página inicial.
 
@@ -100,8 +101,8 @@ variável está ausente e executar novamente `npm run build`, que recria `out/`
 sem a demonstração. A exclusão é feita no roteamento, não por `noindex`,
 ocultação de links, renderização vazia ou remoção manual de arquivos exportados.
 
-O copyright é calculado em uma função com `use cache`, compatível com
-Cache Components e a exportação estática; o ano é atualizado em cada novo build.
+O Footer é síncrono e calcula o copyright durante a geração estática, sem
+`use cache`. O ano é atualizado em cada novo build.
 
 ## Páginas institucionais — Etapa 4
 
@@ -175,7 +176,7 @@ cliente. Os cards são renderizados no servidor e passados ao filtro como conte�
 
 A rota `/modelos/[slug]` gera parâmetros somente dos modelos ativos. Quando não
 há nenhum, mantém o marcador técnico `__empty__` com retorno 404 exigido por esta
-versão com Cache Components. Não usar esse slug em um cadastro. O marcador não
+versão do export. Não usar esse slug em um cadastro. O marcador não
 representa um modelo nem conteúdo comercial. Slugs desconhecidos ou inativos
 são tratados por `notFound()`, incluindo na geração de metadados.
 
@@ -197,3 +198,53 @@ Executar `npm run dev` e abrir `/modelos`. Com o cadastro vazio, deve aparecer
   no mobile, duas a partir de 768 px e três a partir de 1024 px.
 - Confirmar no build a geração das páginas apenas dos modelos ativos e o 404
   para slugs inexistentes. Não publicar a demonstração do Design System.
+
+
+## Build de produção e Firebase Hosting
+
+O build comercial usa `next build --webpack`, opção oficial do Next.js 16.
+O desenvolvimento (`npm run dev`) mantém Turbopack. O fallback de produção
+permite validar a exportação neste ambiente, onde Turbopack não consegue abrir
+uma porta interna para executar o processador CSS (`EPERM`).
+
+O Tailwind CSS 4 é processado por `@tailwindcss/postcss` em `postcss.config.mjs`,
+com versões alinhadas em 4.3.5. O loader `@tailwindcss/turbopack` foi removido;
+não se deve processar Tailwind simultaneamente pelos dois caminhos. Os tokens
+`@theme` permanecem no código-fonte e são transformados em CSS padrão no build.
+
+A configuração mantém apenas exportação, barras finais, imagens não otimizadas
+e a seleção de extensões da demonstração. `cacheComponents` e
+`partialPrefetching` não são necessários: a combinação anterior reproduziu
+`Invariant: PPR cannot be enabled in export mode` ao final do build, impedindo
+a conclusão da exportação. `agentFeedback` é uma ferramenta de desenvolvimento,
+não uma exigência do site, e permanece ausente. O Footer não depende de cache.
+As funções de página que aguardam `params` continuam assíncronas, como exige
+a API desta versão. `dynamicParams = false` impede novos slugs em execução.
+
+Validação antes de publicar:
+
+```bash
+npm ci
+npm run lint
+npx next typegen
+npx tsc --noEmit
+npm run build
+npm run check:export
+```
+
+`check:export` falha se faltar ou estiver vazio qualquer HTML obrigatório
+(`index`, `404`, `servicos`, `modelos`, `como-funciona`, `contato`), se faltarem
+assets referenciados, CSS/JS, utilitários do design system ou se `@theme` não
+estiver processado. Também impede a presença da rota de demonstração no build
+comercial. Os dois workflows executam essa checagem **antes** da ação Firebase.
+O build no CI define `INCLUDE_DESIGN_SYSTEM=false` explicitamente.
+
+O Firebase Hosting continua servindo `out`, sem SSR e sem rewrite SPA.
+Para testar os arquivos diretamente (sem usar `next start`):
+
+```bash
+python3 -m http.server 3100 --bind 127.0.0.1 --directory out
+```
+
+Abrir `http://localhost:3100/` e as rotas institucionais com barra final.
+O `404.html` é usado pelo Firebase para rotas desconhecidas.

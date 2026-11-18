@@ -3,13 +3,8 @@ import { Container } from "@/components/ui/Container";
 
 const linkClass = "inline-flex min-h-11 items-center transition-colors hover:text-foreground hover:underline";
 
-async function getCopyrightYear() {
-  "use cache";
-  return new Date().getFullYear();
-}
-
-export async function Footer() {
-  const year = await getCopyrightYear();
+export function Footer() {
+  const year = new Date().getFullYear();
   return (
     <footer className="border-t border-border bg-surface text-sm text-muted-foreground">
       <Container className="flex flex-col gap-6 py-10 md:flex-row md:items-center md:justify-between md:gap-8 md:py-12">
