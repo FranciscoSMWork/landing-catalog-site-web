@@ -141,3 +141,59 @@ Conferir a opção selecionada, navegar com Tab e sair dos campos obrigatórios
 vazios ou com e-mail inválido para verificar os erros. O botão deve continuar
 desabilitado mesmo com dados válidos. Conferir também as larguras de 375, 768,
 1280 e 1440 px e executar `npm run build` para validar a exportação estática.
+
+## Catálogo de modelos — Etapa 5
+
+O cadastro permanece vazio: nenhum modelo comercial ou imagem fictícia foi
+publicado. `/modelos` exibe filtros e um convite para contato enquanto a seleção
+estiver em preparação. A Home permanece sem catálogo.
+
+### Cadastrar um modelo
+
+1. Adicionar imagens aprovadas em `public/images/templates/<slug>/`.
+2. Adicionar um objeto ao array de `src/data/templates.ts`. O arquivo contém
+   um exemplo **comentado e fictício**, que não aparece no catálogo.
+3. Preencher `id` e `slug` únicos (slug simples, sem espaços ou barras), `name`,
+   `description`, `category`, `thumbnail`, `images`, `features` e `active`.
+   Categorias aceitas: `profissionais`, `empresas` e `campanhas`.
+4. Informar caminhos locais como `/images/templates/<slug>/capa.webp`.
+   `images` pode ser vazio; a imagem principal aparece sempre. Repetições da
+   imagem principal na galeria são ignoradas. Imagens usam `next/image` com
+   `unoptimized`, sem depender do otimizador de imagens em tempo de execução.
+5. Informar `demoUrl` somente quando existir uma demonstração HTTP(S) real.
+   Se o campo for omitido, o botão de demonstração não aparece.
+6. Definir `active: true` somente quando os dados estiverem prontos. Modelos
+   inativos ficam fora do catálogo, dos slugs estáticos e da seleção no contato.
+7. Executar lint, TypeScript e `npm run build` novamente para gerar as páginas.
+   Para remover um modelo já publicado, publicar novamente a exportação completa
+   após desativá-lo, removendo também os artefatos antigos da hospedagem.
+
+`src/lib/templates.ts` concentra a consulta de ativos, filtro por categoria,
+busca por slug, slugs disponíveis e nomes de categorias. Os helpers recebem
+os dados como argumento; os arquivos de cadastro não são importados pelo filtro
+cliente. Os cards são renderizados no servidor e passados ao filtro como conteúdo.
+
+A rota `/modelos/[slug]` gera parâmetros somente dos modelos ativos. Quando não
+há nenhum, mantém o marcador técnico `__empty__` com retorno 404 exigido por esta
+versão com Cache Components. Não usar esse slug em um cadastro. O marcador não
+representa um modelo nem conteúdo comercial. Slugs desconhecidos ou inativos
+são tratados por `notFound()`, incluindo na geração de metadados.
+
+### Testar localmente
+
+Executar `npm run dev` e abrir `/modelos`. Com o cadastro vazio, deve aparecer
+“Novos modelos em preparação”. Após cadastrar modelos reais aprovados:
+
+- Alternar Todos, Profissionais, Empresas e Campanhas e vendas, inclusive com
+  Tab/Enter/Espaço. A categoria selecionada usa `aria-pressed` e a contagem tem
+  anúncio acessível. Categorias sem resultados oferecem retorno para Todos.
+- Abrir um card, conferir imagens, características e o botão opcional de demo.
+- Usar “Solicitar orçamento”: `/contato?modelo=<slug>` mostra o nome do modelo
+  e pré-seleciona sua categoria. O select continua editável e o envio desabilitado.
+- Se `modelo` e `servico` forem válidos simultaneamente, a categoria do modelo
+  tem prioridade. Modelo inválido ou inativo é ignorado, preservando `servico`
+  quando válido. A navegação para outro modelo reinicia os campos sem persistência.
+- Conferir o grid e a galeria em 375, 768, 1280 e 1440 px. O grid usa uma coluna
+  no mobile, duas a partir de 768 px e três a partir de 1024 px.
+- Confirmar no build a geração das páginas apenas dos modelos ativos e o 404
+  para slugs inexistentes. Não publicar a demonstração do Design System.

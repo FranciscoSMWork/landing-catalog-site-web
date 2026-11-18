@@ -6,7 +6,9 @@ export interface Template {
   name: string;
   description: string;
   category: TemplateCategory;
-  image: string;
-  demoUrl: string;
+  thumbnail: string;
+  images: string[];
+  demoUrl?: string;
   features: string[];
+  active: boolean;
 }

@@ -4,6 +4,9 @@ import { useState } from "react";
 import type { ChangeEvent, FocusEvent } from "react";
 import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/Button";
+import type { Template } from "@/types/template";
+
+type ContactModel = Pick<Template, "slug" | "name" | "category">;
 
 type FieldName = "name" | "email" | "whatsapp" | "projectType" | "description";
 type FieldElement = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
@@ -24,7 +27,7 @@ const requiredMessages: Record<FieldName, string> = {
   description: "Descreva sua ideia para o projeto.",
 };
 
-function ContactFields({ initialService }: { initialService: string }) {
+function ContactFields({ initialService, model }: { initialService: string; model?: ContactModel }) {
   const [errors, setErrors] = useState<Errors>({});
 
   function validate(field: FieldElement) {
@@ -61,6 +64,7 @@ function ContactFields({ initialService }: { initialService: string }) {
 
   return (
     <form onSubmit={(event) => event.preventDefault()} aria-label="Formulário de orçamento" aria-describedby="contact-unavailable" className="space-y-6">
+      {model && <p className="rounded-md border border-border bg-surface p-4 text-sm">Modelo escolhido: <strong className="font-medium">{model.name}</strong>. Você pode alterar o tipo de projeto abaixo.</p>}
       <p className="text-sm text-muted-foreground">Os campos indicados como obrigatórios precisam ser preenchidos.</p>
       <div className="grid gap-6 md:grid-cols-2">
         <div>
@@ -100,10 +104,12 @@ function ContactFields({ initialService }: { initialService: string }) {
   );
 }
 
-export function ContactForm() {
+export function ContactForm({ models = [] }: { models?: ContactModel[] }) {
   const searchParams = useSearchParams();
   const service = searchParams.get("servico") ?? "";
   const initialService = ["profissionais", "empresas", "campanhas"].includes(service) ? service : "";
 
-  return <ContactFields key={initialService} initialService={initialService} />;
+  const model = models.find((item) => item.slug === searchParams.get("modelo"));
+
+  return <ContactFields key={`${model?.slug ?? ""}:${initialService}`} initialService={model?.category ?? initialService} model={model} />;
 }

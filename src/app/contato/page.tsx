@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { templates } from "@/data/templates";
+import { getActiveTemplates } from "@/lib/templates";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { Badge } from "@/components/ui/Badge";
 import { Container } from "@/components/ui/Container";
@@ -27,7 +29,7 @@ export default function ContactPage() {
           <Heading level="h2" id="form-title">Sobre o seu projeto</Heading>
           <div className="mt-8">
             <Suspense fallback={<p role="status" className="text-muted-foreground">Carregando formulário…</p>}>
-              <ContactForm />
+              <ContactForm models={getActiveTemplates(templates).map(({ slug, name, category }) => ({ slug, name, category }))} />
             </Suspense>
             <noscript>Ative o JavaScript para visualizar o formulário. O envio estará disponível em breve.</noscript>
           </div>
