@@ -42,3 +42,7 @@ next-env.d.ts
 
 *.txt
 *.xlsx
+
+# Firebase CLI cache
+/.firebase/
+firebase-debug.log*
