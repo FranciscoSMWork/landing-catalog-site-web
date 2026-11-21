@@ -28,7 +28,7 @@ const steps = [
 
 export function ProcessSection() {
   return (
-    <Section aria-labelledby="process-title" className="border-t border-border">
+    <Section aria-labelledby="process-title" className="border-y border-border bg-surface">
       <Container>
         <Heading level="h2" id="process-title" className="max-w-reading text-balance">
           Do primeiro contato à publicação.
@@ -36,7 +36,7 @@ export function ProcessSection() {
         <ol className="mt-10 grid gap-8 md:grid-cols-2 xl:grid-cols-4">
           {steps.map(({ number, title, description }) => (
             <li key={number} className="min-w-0 border-t border-border pt-6">
-              <span aria-hidden="true" className="font-mono text-sm text-muted-foreground">{number}</span>
+              <span aria-hidden="true" className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-primary/20 bg-muted font-mono text-sm text-primary">{number}</span>
               <Heading level="h3" className="mt-4">{title}</Heading>
               <p className="mt-4 text-sm text-muted-foreground">{description}</p>
             </li>

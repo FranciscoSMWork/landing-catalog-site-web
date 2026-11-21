@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/Card";
 import { Container } from "@/components/ui/Container";
 import { Heading } from "@/components/ui/Heading";
 import { Section } from "@/components/ui/Section";
+import styles from "./Home.module.css";
 
 const services = [
   {
@@ -21,7 +22,7 @@ const services = [
 
 export function ServicesSection() {
   return (
-    <Section aria-labelledby="services-title" className="border-y border-border bg-surface">
+    <Section aria-labelledby="services-title" className="border-y border-border bg-muted/50">
       <Container>
         <div className="max-w-reading">
           <Heading level="h2" id="services-title" className="text-balance">
@@ -31,10 +32,11 @@ export function ServicesSection() {
             Criamos experiências digitais que combinam design, desempenho e funcionalidade.
           </p>
         </div>
-        <ul className="mt-10 grid gap-5 lg:grid-cols-3">
+        <ul className="mt-12 grid gap-5 lg:grid-cols-3">
           {services.map(({ title, description }) => (
             <li key={title} className="min-w-0">
               <Card className="h-full">
+                <div aria-hidden="true" className={styles.serviceAccent} />
                 <Heading level="h3">{title}</Heading>
                 <p className="mt-4 text-sm text-muted-foreground">{description}</p>
               </Card>

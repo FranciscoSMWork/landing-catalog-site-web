@@ -24,11 +24,11 @@ const benefits = [
 export function BenefitsSection() {
   return (
     <Section aria-labelledby="benefits-title">
-      <Container>
-        <Heading level="h2" id="benefits-title" className="max-w-reading text-balance">
+      <Container className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+        <Heading level="h2" id="benefits-title" className="max-w-reading text-balance lg:max-w-sm">
           Tecnologia e simplicidade em cada detalhe.
         </Heading>
-        <ul className="mt-10 grid gap-x-12 gap-y-8 md:grid-cols-2">
+        <ul className="grid gap-x-8 gap-y-8 md:grid-cols-2">
           {benefits.map(({ title, description }) => (
             <li key={title} className="min-w-0 border-t border-border pt-6">
               <Heading level="h3">{title}</Heading>

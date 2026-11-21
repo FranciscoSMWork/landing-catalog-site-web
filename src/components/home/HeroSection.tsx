@@ -5,14 +5,17 @@ import { Container } from "@/components/ui/Container";
 import { Heading } from "@/components/ui/Heading";
 import { Section } from "@/components/ui/Section";
 
+import { HeroVisual } from "./HeroVisual";
+import styles from "./Home.module.css";
+
 export function HeroSection() {
   return (
-    <Section spacing="lg" aria-labelledby="hero-title">
-      <Container>
-        <div className="max-w-reading">
+    <Section spacing="md" aria-labelledby="hero-title" className={styles.hero}>
+      <Container className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
+        <div className="min-w-0 max-w-reading">
           <Badge>DESENVOLVIMENTO WEB PROFISSIONAL</Badge>
           <Heading id="hero-title" className="mt-6 text-balance">
-            Sites modernos. Simples, rápidos e profissionais.
+            Sites modernos. Simples, <span className="text-primary">rápidos</span> e profissionais.
           </Heading>
           <p className="mt-6 max-w-2xl text-base text-muted-foreground sm:text-lg">
             Desenvolvemos sites e landing pages para profissionais e empresas
@@ -27,6 +30,7 @@ export function HeroSection() {
             </Link>
           </div>
         </div>
+        <HeroVisual />
       </Container>
     </Section>
   );
