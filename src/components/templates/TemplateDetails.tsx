@@ -14,7 +14,7 @@ export function TemplateDetails({ template }: { template: Template }) {
     <>
       <Section spacing="lg" aria-labelledby="template-title">
         <Container>
-          <Link href="/modelos" className="inline-flex min-h-11 items-center text-sm underline hover:text-muted-foreground">Voltar aos modelos</Link>
+          <Link href="/modelos" className="inline-flex min-h-11 items-center text-sm underline text-primary transition-colors hover:text-primary-hover">Voltar aos modelos</Link>
           <div className="mt-6 max-w-reading">
             <Badge>{templateCategoryLabels[template.category]}</Badge>
             <Heading id="template-title" className="mt-6 text-balance">{template.name}</Heading>

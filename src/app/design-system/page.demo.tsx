@@ -24,6 +24,11 @@ const colors = [
   { name: "primary-foreground", className: "bg-primary-foreground" },
   { name: "primary-hover", className: "bg-primary-hover" },
   { name: "focus-ring", className: "bg-focus-ring" },
+  { name: "secondary", className: "bg-secondary" },
+  { name: "secondary-surface", className: "bg-secondary-surface" },
+  { name: "secondary-foreground", className: "bg-secondary-foreground" },
+  { name: "disabled", className: "bg-disabled" },
+  { name: "disabled-foreground", className: "bg-disabled-foreground" },
 ];
 const buttonVariants = ["primary", "secondary", "outline", "ghost"] as const;
 const buttonSizes = ["sm", "md", "lg"] as const;
@@ -38,12 +43,12 @@ export default function DesignSystemPage() {
           <Badge bordered>Referência interna · Etapa 2</Badge>
           <Heading id="design-system-title" className="mt-6">Design System</Heading>
           <p className="mt-6 max-w-reading text-muted-foreground">
-            Fundamentos e componentes do Estúdio Web. Uma base clara, monocromática
+            Fundamentos e componentes do Estúdio Web. Uma base clara, em azul e violeta
             e consistente para as próximas páginas.
           </p>
           <nav aria-label="Seções da demonstração" className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm">
             {[ ["paleta", "Paleta"], ["tipografia", "Tipografia"], ["botoes", "Botões"], ["componentes", "Componentes"], ["containers", "Containers"], ["espacamento", "Espaçamento"]].map(([id, label]) => (
-              <a key={id} href={`#${id}`} className="inline-flex min-h-11 items-center underline hover:text-muted-foreground">{label}</a>
+              <a key={id} href={`#${id}`} className="inline-flex min-h-11 items-center underline text-primary transition-colors hover:text-primary-hover">{label}</a>
             ))}
           </nav>
         </Container>

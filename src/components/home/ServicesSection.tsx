@@ -41,7 +41,7 @@ export function ServicesSection() {
             </li>
           ))}
         </ul>
-        <Link href="/servicos" className="mt-8 inline-flex min-h-11 items-center text-sm font-medium underline hover:text-muted-foreground">
+        <Link href="/servicos" className="mt-8 inline-flex min-h-11 items-center text-sm font-medium underline text-primary transition-colors hover:text-primary-hover">
           Conhecer todos os serviços
         </Link>
       </Container>

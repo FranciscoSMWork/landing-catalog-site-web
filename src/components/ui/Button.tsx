@@ -10,9 +10,9 @@ type ButtonProps = ComponentProps<"button"> & ButtonStyleProps;
 
 const variants = {
   primary: "border-transparent bg-primary text-primary-foreground hover:bg-primary-hover",
-  secondary: "border-transparent bg-muted text-foreground hover:bg-border",
-  outline: "border-border bg-background text-foreground hover:bg-muted",
-  ghost: "border-transparent bg-transparent text-foreground hover:bg-muted",
+  secondary: "border-border bg-background text-primary hover:bg-muted hover:border-primary",
+  outline: "border-border bg-background text-foreground hover:bg-muted hover:border-primary",
+  ghost: "border-transparent bg-transparent text-primary hover:bg-muted",
 };
 const sizes = {
   sm: "min-h-11 px-3 text-sm",
@@ -23,7 +23,7 @@ const sizes = {
 // Reuse on next/link for navigation while preserving anchor semantics.
 export function buttonStyles({ variant = "primary", size = "md", className }: ButtonStyleProps = {}) {
   return cn(
-    "inline-flex max-w-full items-center justify-center gap-2 rounded-md border py-2 text-center font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus-ring disabled:pointer-events-none disabled:opacity-50",
+    "inline-flex max-w-full items-center justify-center gap-2 rounded-md border py-2 text-center font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus-ring disabled:pointer-events-none disabled:border-border disabled:bg-disabled disabled:text-disabled-foreground",
     variants[variant], sizes[size], className,
   );
 }
