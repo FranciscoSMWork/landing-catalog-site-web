@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ResponsiveMockup } from "@/components/visuals/ResponsiveMockup";
 import Link from "next/link";
 import { ServiceDetail } from "@/components/services/ServiceDetail";
 import { Badge } from "@/components/ui/Badge";
@@ -16,12 +17,13 @@ export default function ServicesPage() {
   return (
     <>
       <Section spacing="lg" aria-labelledby="services-title">
-        <Container>
-          <div className="max-w-reading">
+        <Container className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
+          <div className="min-w-0 max-w-reading">
             <Badge>NOSSOS SERVIÇOS</Badge>
             <Heading id="services-title" className="mt-6 text-balance">Soluções digitais para cada necessidade.</Heading>
             <p className="mt-6 text-muted-foreground sm:text-lg">Desenvolvemos sites modernos, responsivos e personalizados para profissionais e empresas que desejam fortalecer sua presença digital.</p>
           </div>
+          <ResponsiveMockup />
         </Container>
       </Section>
       <ServiceDetail
