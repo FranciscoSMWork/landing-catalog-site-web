@@ -1,3 +1,4 @@
+import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
@@ -14,7 +15,7 @@ export function TemplateCard({ template }: { template: Template }) {
       <Badge>{templateCategoryLabels[template.category]}</Badge>
       <Heading level="h3" className="mt-4">{template.name}</Heading>
       <p className="mt-4 text-sm text-muted-foreground">{template.description}</p>
-      <span className="mt-6 inline-block text-sm font-medium underline">Visualizar detalhes</span>
+      <span className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-primary underline">Visualizar detalhes<ArrowUpRight size={16} strokeWidth={1.75} aria-hidden="true" focusable="false" /></span>
     </Card>
   );
 }

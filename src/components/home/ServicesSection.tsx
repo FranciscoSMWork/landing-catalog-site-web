@@ -3,19 +3,23 @@ import { Card } from "@/components/ui/Card";
 import { Container } from "@/components/ui/Container";
 import { Heading } from "@/components/ui/Heading";
 import { Section } from "@/components/ui/Section";
-import styles from "./Home.module.css";
+import { Building2, Monitor, PanelsTopLeft } from "lucide-react";
+import { IconBadge } from "@/components/ui/IconBadge";
 
 const services = [
   {
     title: "Sites profissionais",
+    icon: Monitor,
     description: "Páginas de apresentação pessoal e portfólios para profissionais que desejam divulgar seus trabalhos, experiências e serviços.",
   },
   {
     title: "Sites empresariais",
+    icon: Building2,
     description: "Sites institucionais para empresas que precisam apresentar seus serviços, fortalecer sua presença digital e facilitar o contato com clientes.",
   },
   {
     title: "Landing pages para campanhas",
+    icon: PanelsTopLeft,
     description: "Páginas direcionadas à divulgação de produtos, lançamentos, eventos e campanhas comerciais.",
   },
 ];
@@ -33,10 +37,10 @@ export function ServicesSection() {
           </p>
         </div>
         <ul className="mt-12 grid gap-5 lg:grid-cols-3">
-          {services.map(({ title, description }) => (
+          {services.map(({ title, description, icon }) => (
             <li key={title} className="min-w-0">
               <Card className="h-full">
-                <div aria-hidden="true" className={styles.serviceAccent} />
+                <IconBadge icon={icon} className="mb-6" />
                 <Heading level="h3">{title}</Heading>
                 <p className="mt-4 text-sm text-muted-foreground">{description}</p>
               </Card>

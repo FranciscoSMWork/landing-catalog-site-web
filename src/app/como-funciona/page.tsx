@@ -1,3 +1,4 @@
+import { CircleCheck, ClipboardList, CodeXml, MessageSquare, Rocket } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ProcessStep } from "@/components/process/ProcessStep";
@@ -13,11 +14,11 @@ export const metadata: Metadata = {
 };
 
 const steps = [
-  { number: "01", title: "Primeiro contato", description: "Você nos apresenta sua ideia, seus objetivos e o tipo de site que deseja desenvolver." },
-  { number: "02", title: "Definição do projeto", description: "Analisamos suas necessidades, definimos o escopo, as personalizações e as condições comerciais." },
-  { number: "03", title: "Desenvolvimento", description: "Criamos e personalizamos o site conforme os requisitos acordados." },
-  { number: "04", title: "Revisão e aprovação", description: "Você avalia o resultado e solicita os ajustes previstos no escopo contratado." },
-  { number: "05", title: "Publicação", description: "Após a aprovação, realizamos a publicação do site e orientamos sobre as opções de manutenção." },
+  { number: "01", icon: MessageSquare, title: "Primeiro contato", description: "Você nos apresenta sua ideia, seus objetivos e o tipo de site que deseja desenvolver." },
+  { number: "02", icon: ClipboardList, title: "Definição do projeto", description: "Analisamos suas necessidades, definimos o escopo, as personalizações e as condições comerciais." },
+  { number: "03", icon: CodeXml, title: "Desenvolvimento", description: "Criamos e personalizamos o site conforme os requisitos acordados." },
+  { number: "04", icon: CircleCheck, title: "Revisão e aprovação", description: "Você avalia o resultado e solicita os ajustes previstos no escopo contratado." },
+  { number: "05", icon: Rocket, title: "Publicação", description: "Após a aprovação, realizamos a publicação do site e orientamos sobre as opções de manutenção." },
 ];
 const materials = ["Nome profissional ou empresarial.", "Descrição dos serviços ou produtos.", "Logotipo, caso exista.", "Imagens e materiais disponíveis.", "Informações de contato.", "Preferências visuais e referências."];
 
@@ -37,7 +38,7 @@ export default function ProcessPage() {
         <Container>
           <div className="max-w-reading">
             <Heading level="h2" id="steps-title">Da ideia à publicação.</Heading>
-            <ol className="mt-10">
+            <ol className="mt-10 space-y-5">
               {steps.map((step) => <ProcessStep key={step.number} {...step} />)}
             </ol>
           </div>

@@ -1,3 +1,6 @@
+import { Building2, Monitor, PanelsTopLeft } from "lucide-react";
+import { IconBadge } from "@/components/ui/IconBadge";
+import { Card } from "@/components/ui/Card";
 import Link from "next/link";
 import { buttonStyles } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
@@ -13,19 +16,22 @@ type ServiceDetailProps = {
   features: string[];
 };
 
+const serviceIcons = { profissionais: Monitor, empresas: Building2, campanhas: PanelsTopLeft };
+
 export function ServiceDetail({ slug, title, description, audienceTitle, audience, features }: ServiceDetailProps) {
   return (
     <Section aria-labelledby={`service-${slug}`} className="border-t border-border">
       <Container>
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
-          <div>
+          <div className="min-w-0">
+            <IconBadge icon={serviceIcons[slug]} className="mb-6" />
             <Heading level="h2" id={`service-${slug}`} className="text-balance">{title}</Heading>
             <p className="mt-6 max-w-xl text-muted-foreground">{description}</p>
             <Link href={`/contato?servico=${slug}`} className={buttonStyles({ className: "mt-8 w-full sm:w-auto" })}>
               Solicitar orçamento
             </Link>
           </div>
-          <div className="space-y-8">
+          <Card className="space-y-8 bg-surface">
             <div>
               <Heading level="h3">{audienceTitle}</Heading>
               <ul className="mt-4 list-disc space-y-2 pl-5 text-muted-foreground marker:text-muted-foreground">
@@ -39,7 +45,7 @@ export function ServiceDetail({ slug, title, description, audienceTitle, audienc
               </ul>
               <p className="mt-4 text-sm text-muted-foreground">As funcionalidades são definidas conforme o escopo contratado.</p>
             </div>
-          </div>
+          </Card>
         </div>
       </Container>
     </Section>
