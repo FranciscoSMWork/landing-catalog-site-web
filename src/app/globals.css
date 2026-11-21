@@ -9,6 +9,7 @@
   /* AA em branco e nas superfícies azuladas. */
   --muted-foreground: #5b6b82;
   --border: #e2e8f0;
+  --control-border: #7c8ba1;
   --primary: #4f46e5;
   --primary-foreground: #ffffff;
   --primary-hover: #4338ca;
@@ -27,6 +28,7 @@
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
+  --color-control-border: var(--control-border);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-primary-hover: var(--primary-hover);

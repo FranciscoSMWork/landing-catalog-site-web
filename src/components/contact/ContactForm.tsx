@@ -18,7 +18,7 @@ const projectOptions = [
   { value: "campanhas", label: "Landing page para campanha" },
   { value: "indefinido", label: "Ainda não sei" },
 ];
-const fieldClass = "mt-2 block min-h-12 w-full min-w-0 rounded-md border border-border bg-background px-3 py-3 text-base text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring";
+const fieldClass = "mt-2 block min-h-12 w-full min-w-0 rounded-md border border-control-border bg-background px-3 py-3 text-base text-foreground aria-invalid:border-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring";
 const requiredMessages: Record<FieldName, string> = {
   name: "Informe seu nome.",
   email: "Informe seu e-mail.",

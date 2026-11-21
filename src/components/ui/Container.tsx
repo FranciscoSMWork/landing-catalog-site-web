@@ -11,5 +11,5 @@ const widths = {
 };
 
 export function Container({ variant = "default", className, ...props }: ContainerProps) {
-  return <div className={cn("mx-auto w-full px-5 sm:px-8 lg:px-10", widths[variant], className)} {...props} />;
+  return <div className={cn("mx-auto min-w-0 w-full px-5 sm:px-8 lg:px-10", widths[variant], className)} {...props} />;
 }

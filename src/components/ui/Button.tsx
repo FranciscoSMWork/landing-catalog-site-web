@@ -10,8 +10,8 @@ type ButtonProps = ComponentProps<"button"> & ButtonStyleProps;
 
 const variants = {
   primary: "border-transparent bg-primary text-primary-foreground hover:bg-primary-hover",
-  secondary: "border-border bg-background text-primary hover:bg-muted hover:border-primary",
-  outline: "border-border bg-background text-foreground hover:bg-muted hover:border-primary",
+  secondary: "border-control-border bg-background text-primary hover:bg-muted hover:border-primary",
+  outline: "border-control-border bg-background text-foreground hover:bg-muted hover:border-primary",
   ghost: "border-transparent bg-transparent text-primary hover:bg-muted",
 };
 const sizes = {

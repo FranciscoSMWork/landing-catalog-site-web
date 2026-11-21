@@ -30,7 +30,7 @@ const benefits = [
 export function BenefitsSection() {
   return (
     <Section aria-labelledby="benefits-title">
-      <Container className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+      <Container className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
         <Heading level="h2" id="benefits-title" className="max-w-reading text-balance lg:max-w-sm">
           Tecnologia e simplicidade em cada detalhe.
         </Heading>
